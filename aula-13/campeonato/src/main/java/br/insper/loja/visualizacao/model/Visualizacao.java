@@ -3,6 +3,8 @@ package br.insper.loja.visualizacao.model;
 import br.insper.loja.usuario.model.Usuario;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Visualizacao {
 	@Id

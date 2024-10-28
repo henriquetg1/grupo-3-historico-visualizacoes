@@ -1,15 +1,13 @@
 package br.insper.loja.usuario.model;
 
-import java.util.ArrayList;
-
-import br.insper.loja.filme.model.Filme;
+import br.insper.loja.visualizacao.model.Visualizacao;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
-@Getter
-@Setter
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +15,31 @@ public class Usuario {
 
     private String email;
 
-    // one-to-many
-    private ArrayList<Visualizacao> historico = new ArrayList<>();
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Visualizacao> historico = new ArrayList<>();
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Visualizacao> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(List<Visualizacao> historico) {
+        this.historico = historico;
+    }
 }
