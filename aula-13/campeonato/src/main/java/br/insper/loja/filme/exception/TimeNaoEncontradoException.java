@@ -1,4 +1,4 @@
-package br.insper.loja.time.exception;
+package br.insper.loja.filme.exception;
 
 public class TimeNaoEncontradoException extends RuntimeException {
 

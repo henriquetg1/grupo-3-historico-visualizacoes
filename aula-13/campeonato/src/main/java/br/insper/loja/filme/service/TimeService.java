@@ -1,8 +1,8 @@
-package br.insper.loja.time.service;
+package br.insper.loja.filme.service;
 
-import br.insper.loja.time.exception.TimeNaoEncontradoException;
-import br.insper.loja.time.repository.TimeRepository;
-import br.insper.loja.time.model.Time;
+import br.insper.loja.filme.exception.TimeNaoEncontradoException;
+import br.insper.loja.filme.repository.TimeRepository;
+import br.insper.loja.filme.model.Filme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

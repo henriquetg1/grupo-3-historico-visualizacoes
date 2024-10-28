@@ -1,7 +1,8 @@
-package br.insper.loja.time.controller;
+package br.insper.loja.filme.controller;
 
 import br.insper.loja.common.Erro;
-import br.insper.loja.time.exception.TimeNaoEncontradoException;
+import br.insper.loja.filme.exception.TimeNaoEncontradoException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
