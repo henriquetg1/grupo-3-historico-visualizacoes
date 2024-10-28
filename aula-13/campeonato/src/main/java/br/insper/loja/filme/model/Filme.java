@@ -19,6 +19,11 @@ public class Filme {
 
     @Column(nullable = false)
     private LocalDateTime data;
+    
+    @Column(nullable = false)
+    private String tempo;
+
+
     public Filme() {
     }
 
