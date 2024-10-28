@@ -17,7 +17,7 @@ public class Usuario {
 
     private String email;
 
-    // MANY TO SOMETHING???
-    private ArrayList<Filme> historico = new ArrayList<>();
+    // one-to-many
+    private ArrayList<Visualizacao> historico = new ArrayList<>();
 
 }
