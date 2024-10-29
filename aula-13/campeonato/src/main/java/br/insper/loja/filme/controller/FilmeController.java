@@ -1,22 +1,20 @@
 package br.insper.loja.filme.controller;
 
+import br.insper.loja.filme.repository.FilmeRepository;
 import br.insper.loja.partida.service.PartidaService;
-import br.insper.loja.filme.service.TimeService;
-import br.insper.loja.filme.model.Filme;
+import br.insper.loja.filme.service.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-public class TimeController {
+public class FilmeController {
 
     @Autowired
-    private TimeService timeService;
+    private FilmeService filmeService;
 
     @Autowired
     private PartidaService partidaService;
 
-
+    @Autowired
+    private FilmeRepository filmeRepository;
 }

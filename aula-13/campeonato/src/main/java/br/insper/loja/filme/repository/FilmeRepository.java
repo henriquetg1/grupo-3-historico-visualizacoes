@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TimeRepository extends JpaRepository<Filme, Integer> {
+public interface FilmeRepository extends JpaRepository<Filme, Integer> {
 
     public List<Filme> findByEstado(String estado);
 
