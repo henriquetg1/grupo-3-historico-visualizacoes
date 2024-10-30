@@ -23,7 +23,7 @@ public class Filme {
 
     @Column(nullable = false)
     private LocalDateTime data;
-    
+
     @Column(nullable = false)
     private String tempo;
 
@@ -31,11 +31,12 @@ public class Filme {
     public Filme() {
     }
 
-    public Filme(Integer id, String nome, String genero, LocalDateTime data) {
+    public Filme(Integer id, String nome, String genero, LocalDateTime data, String tempo) {
         this.id = id;
         this.nome = nome;
         this.genero = genero;
         this.data = data;
+        this.tempo = tempo;
     }
 
     public Integer getId() {
@@ -68,5 +69,13 @@ public class Filme {
 
     public void setData(LocalDateTime data) {
         this.data = data;
+    }
+
+    public String getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(String tempo) {
+        this.tempo = tempo;
     }
 }
