@@ -19,7 +19,7 @@ public class Usuario {
 
     private String email;
 
-    // MANY TO SOMETHING???
+    @OneToMany
     private List<Filme> historico = new ArrayList<>();
 
     public List<Filme> getHistorico() {

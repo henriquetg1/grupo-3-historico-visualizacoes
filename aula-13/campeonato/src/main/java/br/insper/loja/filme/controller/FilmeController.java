@@ -1,5 +1,6 @@
 package br.insper.loja.filme.controller;
 
+import br.insper.loja.common.TokenUtils;
 import br.insper.loja.filme.model.Filme;
 import br.insper.loja.filme.service.FilmeService;
 import br.insper.loja.usuario.model.Usuario;
@@ -17,17 +18,24 @@ public class FilmeController {
     private FilmeService filmeService;
 
     @PostMapping
-    public Filme salvarFilme(@RequestBody Usuario usuario, @RequestBody Filme filme) {
-        return filmeService.salvarFilme(usuario, filme);
+    public Filme salvarFilme(@RequestBody Filme filme,
+                             @RequestHeader(name = "Authorization") String auth) {
+        String email = TokenUtils.getEmailFromToken(auth);
+
+        return filmeService.salvarFilme(email, filme);
     }
 
     @GetMapping
-    public List<Filme> listarFilmes(@RequestBody Usuario usuario, @RequestParam(required = false) LocalDateTime data, @RequestParam(required = false) String nome, @RequestParam(required = false) String genero) {
-        return filmeService.listarFilmes(usuario, data, nome, genero);
+    public List<Filme> listarFilmes(@RequestHeader(name = "Authorization") String auth, @RequestParam(required = false) LocalDateTime data, @RequestParam(required = false) String nome, @RequestParam(required = false) String genero) {
+        String email = TokenUtils.getEmailFromToken(auth);
+
+        return filmeService.listarFilmes(email, data, nome, genero);
     }
 
     @GetMapping("/resumo")
-    public String resumo(@RequestBody Usuario usuario) {
-        return filmeService.resumo(usuario);
+    public String resumo(@RequestHeader(name = "Authorization") String auth) {
+        String email = TokenUtils.getEmailFromToken(auth);
+
+        return filmeService.resumo(email);
     }
 }

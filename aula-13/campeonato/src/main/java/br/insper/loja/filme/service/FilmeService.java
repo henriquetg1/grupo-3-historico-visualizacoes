@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class FilmeService {
@@ -23,8 +24,8 @@ public class FilmeService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Filme salvarFilme(Usuario user, Filme filme) {
-        Optional<Usuario> usuario = usuarioRepository.findByEmail(user.getEmail());
+    public Filme salvarFilme(String email, Filme filme) {
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
         if (usuario.isPresent()) {
             List<Filme> hist = usuario.get().getHistorico();
             hist.add(filme);
@@ -34,37 +35,33 @@ public class FilmeService {
         return null;
     }
 
-    public List<Filme> listarFilmes(Usuario user, LocalDateTime data, String nome, String genero) {
-        Optional<Usuario> usuario = usuarioRepository.findByEmail(user.getEmail());
+    public List<Filme> listarFilmes(String email, LocalDateTime data, String nome, String genero) {
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
         if (usuario.isPresent()) {
             List<Filme> historico = usuario.get().getHistorico();
-            List<Filme> response = new ArrayList<>();
+            ArrayList<Filme> response = new ArrayList<>();
 
-            for (Filme filme : historico) {
-                boolean matches = true;
+            Stream<Filme> s = response.stream();
 
-                if (data != null && !filme.getData().equals(data)) {
-                    matches = false;
-                }
-                if (nome != null && !filme.getNome().equalsIgnoreCase(nome)) {
-                    matches = false;
-                }
-                if (genero != null && !filme.getGenero().equalsIgnoreCase(genero)) {
-                    matches = false;
-                }
-
-                if (matches) {
-                    response.add(filme);
-                }
+            if (data != null) {
+                s.filter(filme -> filme.getData().equals(data));
             }
 
-            return response;
+            if (nome != null) {
+                s.filter(filme -> filme.getNome().equals(nome));
+            }
+
+            if (genero != null) {
+                s.filter(filme -> filme.getGenero().equals(genero));
+            }
+
+            return s.toList();
         }
         return null;
     }
 
-    public String resumo(Usuario user) {
-        Optional<Usuario> usuario = usuarioRepository.findByEmail(user.getEmail());
+    public String resumo(String email) {
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
         if (usuario.isPresent()) {
             List<Filme> historico = usuario.get().getHistorico();
             String resumo = "";

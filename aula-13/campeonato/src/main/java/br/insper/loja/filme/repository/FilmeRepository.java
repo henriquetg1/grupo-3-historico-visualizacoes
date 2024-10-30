@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface FilmeRepository extends JpaRepository<Filme, Integer> {
 
-    public List<Filme> findByEstado(String estado);
 
 
 }
