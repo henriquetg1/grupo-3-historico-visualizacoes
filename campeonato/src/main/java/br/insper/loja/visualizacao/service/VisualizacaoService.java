@@ -33,7 +33,7 @@ public class VisualizacaoService {
 
         if (usuarioOpt.isPresent() && filmeOpt.isPresent()) {
             Visualizacao visualizacao = new Visualizacao();
-            visualizacao.setUsuario(usuarioOpt.get());
+            visualizacao.setEmail(usuarioOpt.get().getEmail());
             visualizacao.setFilme(filmeOpt.get());
             visualizacao.setTempoAssistido(criarVisualizacaoDTO.getTempoAssistido());
             visualizacao.setDataVisualizacao(criarVisualizacaoDTO.getDataVisualizacao());

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class CriarVisualizacaoDTO {
     private String userEmail;
-    private Long filmeId;
+    private Integer filmeId;
     private int tempoAssistido;
     private LocalDate dataVisualizacao;
 
@@ -21,7 +21,7 @@ public class CriarVisualizacaoDTO {
         return filmeId;
     }
 
-    public void setFilmeId(Long filmeId) {
+    public void setFilmeId(Integer filmeId) {
         this.filmeId = filmeId;
     }
 
