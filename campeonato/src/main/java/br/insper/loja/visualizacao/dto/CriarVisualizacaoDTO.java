@@ -3,18 +3,18 @@ package br.insper.loja.visualizacao.dto;
 import java.time.LocalDate;
 
 public class CriarVisualizacaoDTO {
-    private String userEmail;
+    private String email;
     private Integer filmeId;
     private int tempoAssistido;
     private LocalDate dataVisualizacao;
 
     // Getters e Setters
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getFilmeId() {

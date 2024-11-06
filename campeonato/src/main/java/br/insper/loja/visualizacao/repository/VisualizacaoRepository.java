@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface VisualizacaoRepository extends JpaRepository<Visualizacao, Integer> {
-    List<Visualizacao> findByUsuarioEmail(String email);
+    List<Visualizacao> findByEmail(String email);
 }

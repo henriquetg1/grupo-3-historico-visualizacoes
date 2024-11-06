@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,7 @@ public class VisualizacaoService {
     }
 
     public List<RetornarVisualizacaoDTO> listarHistorico(String email) {
-        List<Visualizacao> visualizacoes = visualizacaoRepository.findByUsuarioEmail(email);
+        List<Visualizacao> visualizacoes = visualizacaoRepository.findByEmail(email);
         return visualizacoes.stream().map(v -> {
             RetornarVisualizacaoDTO dto = new RetornarVisualizacaoDTO();
             dto.setFilmeId(v.getFilme().getId());
@@ -58,5 +59,28 @@ public class VisualizacaoService {
         }).collect(Collectors.toList());
     }
 
+    public String resumo(String email) {
+        List<Visualizacao> visualizacoes = visualizacaoRepository.findByEmail(email);
 
+        int tempoTotalAssistido = visualizacoes.stream()
+                .mapToInt(Visualizacao::getTempoAssistido)
+                .sum();
+
+        Map<String, Long> generoFrequencia = visualizacoes.stream()
+                .map(v -> v.getFilme().getGenero())
+                .collect(Collectors.groupingBy(genero -> genero, Collectors.counting()));
+
+        long maxFrequencia = generoFrequencia.values().stream().max(Long::compare).orElse(0L);
+        List<String> generosMaisVisualizados = generoFrequencia.entrySet().stream()
+                .filter(entry -> entry.getValue() == maxFrequencia)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        // Formatar a resposta
+        return String.format(
+                "Tempo total assistido: %d minutos\nGêneros mais visualizados: %s",
+                tempoTotalAssistido,
+                String.join(", ", generosMaisVisualizados)
+        );
+    }
 }

@@ -13,8 +13,6 @@ public class Visualizacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_email", nullable = false)
     private String email;
 
     @ManyToOne

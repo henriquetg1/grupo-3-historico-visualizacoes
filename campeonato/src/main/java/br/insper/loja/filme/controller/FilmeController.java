@@ -1,14 +1,14 @@
 package br.insper.loja.filme.controller;
 
-import br.insper.loja.common.TokenUtils;
 import br.insper.loja.filme.model.Filme;
 import br.insper.loja.filme.service.FilmeService;
-import br.insper.loja.usuario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/filme")
@@ -17,25 +17,22 @@ public class FilmeController {
     @Autowired
     private FilmeService filmeService;
 
-    @PostMapping
-    public Filme salvarFilme(@RequestBody Filme filme,
-                             @RequestHeader(name = "Authorization") String auth) {
-        String email = TokenUtils.getEmailFromToken(auth);
-
-        return filmeService.salvarFilme(email, filme);
-    }
-
     @GetMapping
-    public List<Filme> listarFilmes(@RequestHeader(name = "Authorization") String auth, @RequestParam(required = false) LocalDateTime data, @RequestParam(required = false) String nome, @RequestParam(required = false) String genero) {
-        String email = TokenUtils.getEmailFromToken(auth);
-
-        return filmeService.listarFilmes(email, data, nome, genero);
+    public ResponseEntity<List<Filme>> listarTodosFilmes() {
+        List<Filme> filmes = filmeService.listarTodosFilmes();
+        return new ResponseEntity<>(filmes, HttpStatus.OK);
     }
 
-    @GetMapping("/resumo")
-    public String resumo(@RequestHeader(name = "Authorization") String auth) {
-        String email = TokenUtils.getEmailFromToken(auth);
+    @GetMapping("/{id}")
+    public ResponseEntity<Filme> buscarFilmePorId(@PathVariable Integer id) {
+        Optional<Filme> filme = filmeService.buscarFilmePorId(id);
+        return filme.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
-        return filmeService.resumo(email);
+    @PostMapping
+    public ResponseEntity<Filme> criarFilme(@RequestBody Filme filme) {
+        Filme novoFilme = filmeService.criarFilme(filme);
+        return new ResponseEntity<>(novoFilme, HttpStatus.CREATED);
     }
 }
