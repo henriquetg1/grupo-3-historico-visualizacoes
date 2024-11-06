@@ -1,5 +1,6 @@
 package br.insper.loja.visualizacao.service;
 
+import br.insper.loja.common.TokenUtils;
 import br.insper.loja.visualizacao.dto.CriarVisualizacaoDTO;
 import br.insper.loja.visualizacao.dto.RetornarVisualizacaoDTO;
 import br.insper.loja.visualizacao.model.Visualizacao;
@@ -10,7 +11,10 @@ import br.insper.loja.filme.model.Filme;
 import br.insper.loja.filme.repository.FilmeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,13 +31,12 @@ public class VisualizacaoService {
     @Autowired
     private FilmeRepository filmeRepository;
 
-    public void registrarVisualizacao(CriarVisualizacaoDTO criarVisualizacaoDTO) {
-        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(criarVisualizacaoDTO.getUserEmail());
+    public void registrarVisualizacao(CriarVisualizacaoDTO criarVisualizacaoDTO, String email) {
         Optional<Filme> filmeOpt = filmeRepository.findById(criarVisualizacaoDTO.getFilmeId());
 
-        if (usuarioOpt.isPresent() && filmeOpt.isPresent()) {
+        if (!email.isBlank()&& filmeOpt.isPresent()) {
             Visualizacao visualizacao = new Visualizacao();
-            visualizacao.setEmail(usuarioOpt.get().getEmail());
+            visualizacao.setEmail(email);
             visualizacao.setFilme(filmeOpt.get());
             visualizacao.setTempoAssistido(criarVisualizacaoDTO.getTempoAssistido());
             visualizacao.setDataVisualizacao(criarVisualizacaoDTO.getDataVisualizacao());
@@ -54,4 +57,6 @@ public class VisualizacaoService {
             return dto;
         }).collect(Collectors.toList());
     }
+
+
 }

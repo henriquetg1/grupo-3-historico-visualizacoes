@@ -9,25 +9,25 @@ import org.springframework.web.client.RestTemplate;
 
 public class UsuarioService {
 
-    public RetornarUsuarioDto getDataWithJwt(String url, String jwtToken){
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + jwtToken);
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<RetornarUsuarioDto> response = restTemplate.exchange(
-          "http://localhost/8080/usuario",
-                HttpMethod.GET,
-                entity,
-                RetornarUsuarioDto.class
-
-
-        );
-
-        return respose.getBody();
-
-    }
+//    public RetornarUsuarioDto getDataWithJwt(String url, String jwtToken){
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Authorization", "Bearer " + jwtToken);
+//
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
+//
+//        ResponseEntity<RetornarUsuarioDto> response = restTemplate.exchange(
+//          "http://localhost/8080/usuario",
+//                HttpMethod.GET,
+//                entity,
+//                RetornarUsuarioDto.class
+//
+//
+//        );
+//
+//        return response.getBody();
+//
+//    }
 
 }
